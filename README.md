@@ -40,3 +40,21 @@ Examine the output file. What do the bit scores look like for likely false posit
 
     less MtrA.hmm.nr.tblout
 
+Move the HMM files into a single directory
+
+    mv MtrA.hmm ../HMMs/
+    mv Cyc1.hmm ../HMMs/
+
+Check out the Pfam-derived HMM and bitscores.txt file
+
+    less Catalase.hmm
+
+Run HmmGenie (MagicLamp) on test dataset using the new HMM collection
+
+    MagicLamp.py HmmGenie -hmm_dir HMMs/ -hmm_ext hmm -bin_dir test_data/ -bin_ext txt -out hmmgenie_out -eval 1E-1
+    MagicLamp.py HmmGenie -hmm_dir HMMs/ -hmm_ext hmm -bin_dir test_data/ -bin_ext txt -out hmmgenie_out -bit HMMs/bitscores.txt
+    MagicLamp.py HmmGenie -hmm_dir HMMs/ -hmm_ext hmm -bin_dir test_data/ -bin_ext txt -out hmmgenie_out -bit HMMs/bitscores.txt -clu 2
+
+
+
+
