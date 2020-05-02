@@ -120,4 +120,4 @@ fi
 export PS1="\[$(tput setaf 3)\][\$PWD]\[$(tput sgr0)\]$ "
 
 # adding FeGenie to path
-export PATH="${PATH}:/home/jovyan/MagicCave"
+export PATH="${PATH}:/home/jovyan/MagicCave:/home/jovyan/MagicCave"
