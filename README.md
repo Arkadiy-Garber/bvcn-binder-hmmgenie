@@ -1,4 +1,4 @@
-# Binder for BVCN sortmerna lesson
+# Binder for BVCN Functional Annotation lesson
 
 Initially forked from [here](https://github.com/binder-examples/conda). Thank you to the awesome [binder](https://mybinder.org/) team!
 
