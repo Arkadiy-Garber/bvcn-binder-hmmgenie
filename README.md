@@ -8,63 +8,35 @@ Part of the [Bioinformatics Virtual Coordination Network](https://biovcnet.githu
 
 ## Walkthrough
 
-Take a look around
-    
-    ls
+Run phmmer on the Cyc1 fasta file
 
+    phmmer -A Cyc1.refseq.msa --tblout Cyc1.refseq.tblout -E 1E-20 Cyc1.faa ../refseq_db/refseq_nr.sample.faa
 
-Check out the rRNA database files
+Build HMM file from MSA (multiple sequence alignment) file, using hmmbuild
 
-    cd rRNA_databases/sample/
+    hmmbuild Cyc1.hmm Cyc1.refseq.msa
 
-Look inside one of the database FASTA files
+Query the Cyc1 HMM file against refseq database sample
 
-    less silva-bac-16s-id90.fasta
+    hmmsearch --tblout Cyc1.hmm.refseq.tblout Cyc1.hmm ../refseq_db/refseq_nr.sample.faa
 
-go back to the home directory
+Examine the output file. What do the bit scores look like for likely false positives
 
-    cd ../../
+    less Cyc1.hmm.refseq.tblout
 
-Go into the reads directory
+Move into directory containing MtrA FASTA file, and create an alignment using Muscle.
 
-    reads
+    muscle -in MtrA.faa -out MtrA.fa
 
-Print the sortmerna help menu
+Build HMM file from MSA (multiple sequence alignment) file, using hmmbuild
 
-    sortmerna -h
-    
-Run command on single-end reads
+    hmmbuild MtrA.hmm MtrA.fa
 
-    sortmerna --reads MBIC-2-sw0.trimmed.sample.fastq --ref ../rRNA_databases/sample/silva-bac-16s-id90.fasta --ref ../rRNA_databases/sample/silva-bac-23s-id98.fasta --fastx --aligned MBIC-2-sw0.trimmed.sample.rRNA.fastq --other MBIC-2-sw0.trimmed.sample.mRNA.fastq
+Query the MtrA HMM file against refseq database sample
 
-Examine the output files. Look inside the .log output to see the summary of results
+    hmmsearch --tblout MtrA.hmm.nr.tblout MtrA.hmm ../refseq_db/refseq_nr.sample.faa
 
-    less MBIC-2-sw0.trimmed.sample.rRNA.fastq.log
+Examine the output file. What do the bit scores look like for likely false positives
 
-Run command on paired-end reads
-
-    sortmerna --reads SRR6039934_1P.fastq --reads SRR6039934_2P.fastq --ref ../rRNA_databases/sample/silva-bac-16s-id90.fasta --ref ../rRNA_databases/sample/silva-bac-23s-id98.fasta --fastx --other SRR6039934.mRNA --out2 --paired_out
-
-Run command on single-end reads, creating an OTU map
-
-    sortmerna --reads MBIC-2-sw0.trimmed.sample.fastq --ref ../rRNA_databases/sample/silva-bac-16s-id90.fasta --ref ../rRNA_databases/sample/silva-bac-23s-id98.fasta --fastx --aligned MBIC-2-sw0.trimmed.sample.rRNA.fastq --other MBIC-2-sw0.trimmed.sample.mRNA.fastq --otu_map
-
-Examine OTU map output
-
-    less -S MBIC-2-sw0.trimmed.sample.rRNA.fastq_otus.txt
-
-## Bonus section (if I don't run out of time)
-Run Flash
-    
-    flash SRR6039934_1P.fastq SRR6039934_2P.fastq
-
-Run SortMeRNA on Flashed reads
-
-    sortmerna --reads ./out.extendedFrags.fastq --ref ../rRNA_databases/sample/silva-bac-16s-id90.fasta --ref ../rRNA_databases/sample/silva-bac-23s-id98.fasta --fastx --aligned out.extendedFrags.rRNA.fastq --other out.extendedFrags.mRNA.fastq
-
-
-
-
-
-
+    less MtrA.hmm.nr.tblout
 
